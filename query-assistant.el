@@ -64,6 +64,8 @@
 	   finally (return table)))
 
 (defun query-assistant--backend-gemini (query)
+  (unless query-assistant-gemini-key
+    (user-error "`query-assistant-gemini-key' has to be set"))
   (list
    (concat "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="
 	   query-assistant-gemini-key)
@@ -87,6 +89,8 @@
 		       0)))))))
 
 (defun query-assistant--backend-perplexity (query)
+  (unless query-assistant-perplexity-key
+    (user-error "`query-assistant-perplexity-key' has to be set"))
   (list
    "https://api.perplexity.ai/chat/completions"
    `(("Authorization" . ,(format "Bearer %s" query-assistant-perplexity-key)))
@@ -110,6 +114,8 @@
        (gethash "content" (gethash "message" data))))))
 
 (defun query-assistant--backend-openai (query)
+  (unless query-assistant-openai-key
+    (user-error "`query-assistant-openai-key' has to be set"))
   (list
    "https://api.openai.com/v1/responses"
    `(("Authorization" . ,(format "Bearer %s" query-assistant-openai-key)))
