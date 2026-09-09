@@ -132,6 +132,8 @@
 		  return (gethash "text" content)))))))
 
 (defun query-assistant--backend-claude (query)
+  (unless query-assistant-claude-key
+    (user-error "`query-assistant-claude-key' is not set"))
   (list
    "https://api.anthropic.com/v1/messages"
    `(("x-api-key" . ,query-assistant-claude-key)
