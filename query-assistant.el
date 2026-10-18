@@ -160,6 +160,14 @@
 		  when text
 		  return text)))))))
 
+
+(defun query-assistant--json-parse-string (string &rest options)
+  "Like `json-parse-string', but remove Markdown wrappers first, if any."
+  (apply
+   #'json-parse-string
+   (replace-regexp-in-string "\\````json\\|```\\s-*\\'" "" string)
+   options))
+
 (provide 'query-assistant)
 
 ;;; query-assistant.el ends here.
